@@ -108,6 +108,7 @@ export default ({ props }: {
     selectedList,
     listItemHeight,
     removeAllSelect,
+    handleSelectAllData,
     handleSelectData,
   }
 }

@@ -3,7 +3,7 @@
     <div v-show="props.visible" :class="$style.noitem">
       <div v-if="appSetting['search.isShowHotSearch'] || (appSetting['search.isShowHistorySearch'] && historyList.length)" class="scroll" :class="$style.noitemListContainer">
         <dl v-if="appSetting['search.isShowHotSearch']" :class="[$style.noitemList, $style.noitemHotSearchList]">
-          <dt :class="$style.noitemListTitle">{{ $t('search__hot_search') }}</dt>
+          <dt :class="$style.noitemListTitle">{{ $t('search__hot_search') }} 测试的</dt>
           <dd v-for="(item, index) in hotSearchList" :key="index" :class="$style.noitemListItem" @click="handleSearch(item)">{{ item }}</dd>
         </dl>
         <dl v-if="appSetting['search.isShowHistorySearch'] && historyList.length" :class="$style.noitemList">

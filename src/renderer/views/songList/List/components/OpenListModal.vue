@@ -29,6 +29,9 @@
           </ul>
         </div>
         <base-btn :class="$style.btn" @click="handleSubmit">{{ $t('songlist__import_input_btn_confirm') }}</base-btn>
+        <div>
+
+        </div>
       </div>
     </main>
   </material-modal>
@@ -40,6 +43,14 @@ import { setOpenSongListInputInfo } from '@renderer/store/songList/action'
 import { ref, watch } from '@common/utils/vueTools'
 import { useRoute, useRouter } from '@common/utils/vueRouter'
 import { openUrl } from '@common/utils/electron'
+// import MyCustomComponent from './MyCustomComponent.vue'
+//
+//
+// export default {
+//   components: {
+//     MyCustomComponent,
+//   },
+// }
 
 const props = defineProps({
   modelValue: Boolean,
@@ -62,8 +73,10 @@ watch(() => props.modelValue, (visible) => {
   // text.value = openSongListInputInfo.text
 })
 
+
 const handleSubmit = () => {
   if (!text.value.length) return
+  console.log(text.value, source.value)
   setOpenSongListInputInfo(text.value, source.value)
   void router.push({
     path: '/songList/detail',
@@ -74,6 +87,15 @@ const handleSubmit = () => {
     },
   })
 }
+
+
+// const testhandleSubmit = () => {
+//   text.value = 'https://c6.y.qq.com/base/fcgi-bin/u?__=BXXHJ0VhE7aL'
+//   source.value = 'tx'
+//   handleSubmit()
+// }
+//
+// testhandleSubmit()
 
 </script>
 

@@ -454,6 +454,7 @@
   "setting__network_proxy_port": "端口",
   "setting__network_proxy_title": "HTTP代理设置（乱设置软件将无法联网）",
   "setting__network_proxy_username": "用户名",
+  "setting__network_proxy_serviceaddr": "缓存服务器",
   "setting__odc": "强迫症设置",
   "setting__odc_clear_search_input": "离开搜索界面时清空搜索框",
   "setting__odc_clear_search_list": "离开搜索界面时清空搜索列表",

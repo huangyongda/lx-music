@@ -56,7 +56,7 @@ export const createDownloadTasks = (
 }
 
 const createTask = async(downloadInfo: LX.Download.ListItem, savePath: string, skipExistFile: boolean) => {
-  // console.log('createTask', downloadInfo, savePath)
+  console.log('createTask', downloadInfo, savePath)
   // 开始任务
   /* commit('onStart', downloadInfo)
   commit('setStatusText', { downloadInfo, text: '任务初始化中' }) */
@@ -71,9 +71,14 @@ const createTask = async(downloadInfo: LX.Download.ListItem, savePath: string, s
   }
   if (!tasks.has(downloadInfo.id)) return
 
+  console.log('downloadInfo.downloaded:')
+  console.log(downloadInfo.downloaded)
   if (downloadInfo.downloaded == 0) {
     if (skipExistFile) {
+      console.log('skipExistFile')
+      console.log(downloadInfo.metadata.filePath)
       const stats = await getFileStats(downloadInfo.metadata.filePath)
+      console.log(stats)
       if (stats && stats.size > 100) {
         sendAction(downloadInfo.id, {
           action: 'error',
@@ -84,6 +89,8 @@ const createTask = async(downloadInfo: LX.Download.ListItem, savePath: string, s
         return
       }
     } else if (await checkPath(downloadInfo.metadata.filePath)) {
+      console.log('checkPath')
+      console.log(downloadInfo.metadata.filePath)
       try {
         await removeFile(downloadInfo.metadata.filePath)
       } catch (err) {
@@ -197,7 +204,8 @@ const createTask = async(downloadInfo: LX.Download.ListItem, savePath: string, s
       }
     },
     onStart() {
-      sendAction(downloadInfo.id, { action: 'start' })
+      // sendAction(downloadInfo.id, { action: 'start' })
+      console.log(downloadInfo)
       console.log('on start')
     },
     onProgress(status) {
@@ -218,6 +226,7 @@ const createTask = async(downloadInfo: LX.Download.ListItem, savePath: string, s
   // commit('setStatusText', { downloadInfo, text: '获取URL中...' })
 
   tryNum.set(downloadInfo.id, 0)
+
   dls.set(downloadInfo.id, createDownload(downloadOptions))
 }
 

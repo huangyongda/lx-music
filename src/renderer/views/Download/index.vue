@@ -76,10 +76,12 @@ import usePlay from './usePlay'
 import useTaskActions from './useTaskActions'
 import { downloadStatus } from '@renderer/store/download/state'
 import { appSetting } from '@renderer/store/setting'
+// import { useDialog } from '@renderer/core/useApp/useDeeplink/utils'
 
 export default {
   name: 'Download',
   setup() {
+    // const showErrorDialog = useDialog()
     const { tabs, activeTab } = useTab()
 
     const {
@@ -195,6 +197,9 @@ export default {
     const getTypeName = (quality) => {
       return quality == 'flac24bit' ? 'FLAC Hires' : quality?.toUpperCase()
     }
+
+    // showErrorDialog('haha')
+
     return {
       list,
       downloadStatus,

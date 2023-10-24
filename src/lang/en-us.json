@@ -455,6 +455,7 @@
   "setting__network_proxy_port": "Port",
   "setting__network_proxy_title": "HTTP Proxy (False setting would block Internet connections)",
   "setting__network_proxy_username": "Username",
+  "setting__network_proxy_serviceaddr": "serviceaddr",
   "setting__odc": "Auto clear",
   "setting__odc_clear_search_input": "Clear the search box when you are not searching",
   "setting__odc_clear_search_list": "Clear the search list when you are not searching",
