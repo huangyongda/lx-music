@@ -155,6 +155,7 @@ export default {
       listItemHeight,
       handleSelectData,
       removeAllSelect,
+      handleSelectAllData,
     } = useList({ props, listRef })
 
     const {
@@ -218,6 +219,7 @@ export default {
       menuClick(action, index)
     }
     const handleListRightClick = (event) => {
+      console.log('触发了 handleListRightClick')
       if (!event.target.classList.contains('select')) return
       event.stopImmediatePropagation()
       let classList = dom_listContent.value.classList
@@ -246,6 +248,15 @@ export default {
           break
       }
     }
+
+    let test001 = 100
+    if (test001 < 1) {
+      // 全选
+      handleSelectAllData()
+      handleShowDownloadModal(1, true)
+    }
+
+
     const scrollToTop = () => {
       listRef.value.scrollTo(0, true)
     }
@@ -282,6 +293,7 @@ export default {
     }
   },
 }
+
 </script>
 
 

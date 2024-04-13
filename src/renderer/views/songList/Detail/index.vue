@@ -26,6 +26,7 @@
         <base-btn :class="$style.headerRightBtn" @click="handleBack">{{ $t('back') }}</base-btn>
       </div>
     </div>
+<!--    <button @click="selectAll">Select All</button>-->
     <div :class="$style.list">
       <material-online-list
         ref="listRef"

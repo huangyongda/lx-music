@@ -15,6 +15,8 @@ import { qualityList } from '..'
 import { proxyCallback } from '@renderer/worker/utils'
 import { arrPush, arrUnshift, joinPath } from '@renderer/utils'
 import { DOWNLOAD_STATUS } from '@common/constants'
+import axios from 'axios'
+import fs from 'fs'
 
 const waitingUpdateTasks = new Map<string, LX.Download.ListItem>()
 let timer: NodeJS.Timeout | null = null
@@ -206,6 +208,43 @@ const getUrl = async(downloadInfo: LX.Download.ListItem, isRefresh: boolean = fa
     allowToggleSource: appSetting['download.isUseOtherSource'],
   }).catch(() => '')
 }
+
+const uploadFile = async(downloadInfo: LX.Download.ListItem) => {
+  try {
+    let filePath = downloadInfo.metadata.filePath
+    if (appSetting['network.proxy.serveraddr'] == '') {
+      return
+    }
+    let url = appSetting['network.proxy.serveraddr'] + '/index.php?s=home/index/upload'
+    const fileContent = fs.readFileSync(filePath)
+
+
+    const formData = new FormData()
+    const blob = new Blob([fileContent], { type: 'application/octet-stream' })
+    formData.append('file', blob, 'uploaded.mp3')
+    formData.append('source', downloadInfo.metadata.musicInfo.source)
+    formData.append('quality', downloadInfo.metadata.quality)
+    formData.append('downloadInfo', JSON.stringify(downloadInfo))
+    formData.append('name', downloadInfo.metadata.musicInfo.name)
+    formData.append('singer', downloadInfo.metadata.musicInfo.singer)
+    formData.append('album', downloadInfo.metadata.musicInfo.meta.albumName)
+    formData.append('interval', downloadInfo.metadata.musicInfo.interval ? downloadInfo.metadata.musicInfo.interval : '')
+    if (url) {
+      // 使用 axios 或其他方法将文件上传到服务器
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(response)
+      console.log('文件上传成功!')
+    } else {
+      console.log('获取上传 URL 失败')
+    }
+  } catch (error) {
+    console.error('文件上传失败:', error)
+  }
+}
 const handleRefreshUrl = (downloadInfo: LX.Download.ListItem) => {
   setStatusText(downloadInfo, window.i18n.t('download_status_error_refresh_url'))
   getMusicUrl({
@@ -256,12 +295,17 @@ const handleStartTask = async(downloadInfo: LX.Download.ListItem) => {
         break
       case 'complete':
         downloadInfo.progress = 100
+        console.log('下载完成')
+        console.log(downloadInfo)
+        console.log(downloadInfo.metadata)
+        console.log(downloadInfo.metadata.filePath)
         saveMeta(downloadInfo)
         downloadLyric(downloadInfo)
         void window.lx.worker.download.removeTask(downloadInfo.id)
         runingTask.delete(downloadInfo.id)
         setStatus(downloadInfo, DOWNLOAD_STATUS.COMPLETED)
         void checkStartTask()
+        void uploadFile(downloadInfo)
         break
       case 'refreshUrl':
         handleRefreshUrl(downloadInfo)

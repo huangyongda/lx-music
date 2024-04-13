@@ -126,6 +126,7 @@ const defaultSetting: LX.AppSetting = {
   'network.proxy.host': '',
   'network.proxy.port': '',
   'network.proxy.username': '',
+  'network.proxy.serveraddr': '',
   'network.proxy.password': '',
 
   'tray.enable': false,

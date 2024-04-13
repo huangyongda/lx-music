@@ -110,6 +110,7 @@ export default ({ props, listRef }: {
     selectedList,
     listItemHeight,
     removeAllSelect,
+    handleSelectAllData,
     handleSelectData,
   }
 }

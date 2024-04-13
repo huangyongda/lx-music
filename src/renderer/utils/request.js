@@ -44,6 +44,7 @@ const request = (url, options, callback) => {
     options.json = false
   }
   options.response_timeout = options.timeout
+  console.log('options:', options)
 
   return needle.request(options.method || 'get', url, data, options, (err, resp, body) => {
     if (!err) {
@@ -304,6 +305,7 @@ const fetchData = async(url, method, {
     json: format === 'json',
   }, (err, resp, body) => {
     if (err) return callback(err, null)
+    console.log(body)
     callback(null, resp, body)
   })
 }

@@ -585,6 +585,11 @@ declare global {
       'network.proxy.username': string
 
       /**
+       * 缓存服务器
+       */
+      'network.proxy.serveraddr': string
+
+      /**
        * 代理服务器密码
        */
       'network.proxy.password': string

@@ -11,7 +11,11 @@ dd
     .p
       base-input.gap-left(:model-value="appSetting['network.proxy.username']" :placeholder="$t('setting__network_proxy_username')" @update:model-value="setUserName")
       base-input.gap-left(:model-value="appSetting['network.proxy.password']" type="password" :placeholder="$t('setting__network_proxy_password')" @update:model-value="setPassword")
-
+dd
+  div
+  h3#network_proxy_title 缓存服务器配置 如 http://127.0.0.1
+    .p
+      base-input.gap-left(:model-value="appSetting['network.proxy.serveraddr']" :placeholder="$t('setting__network_proxy_serviceaddr')" @update:model-value="setServeraddr")
 </template>
 
 <script>
@@ -36,6 +40,9 @@ export default {
     const setPassword = debounce(password => {
       updateSetting({ 'network.proxy.password': password.trim() })
     }, 500)
+    const setServeraddr = debounce(password => {
+      updateSetting({ 'network.proxy.serveraddr': password.trim() })
+    }, 500)
 
     onBeforeUnmount(() => {
       if (appSetting['network.proxy.enable'] && !appSetting['network.proxy.host']) proxy.enable = false
@@ -47,6 +54,7 @@ export default {
       setHost,
       setPort,
       setUserName,
+      setServeraddr,
       setPassword,
       proxy,
     }
