@@ -23,7 +23,6 @@ import { getSongListSetting, setSongListSetting } from '@renderer/utils/data'
 import TagList from './components/TagList.vue'
 import SortTab from './components/SortTab.vue'
 import OpenListModal from './components/OpenListModal.vue'
-import MyCustomComponent from './components/MyCustomComponent.vue'
 
 import ListView from './ListView.vue'
 import { sources, listInfo, isVisibleListDetail } from '@renderer/store/songList/state'
@@ -87,7 +86,6 @@ export default {
     SortTab,
     ListView,
     OpenListModal,
-    MyCustomComponent,
   },
   beforeRouteEnter: verifyQueryParams,
   beforeRouteUpdate: verifyQueryParams,
