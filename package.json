@@ -177,6 +177,7 @@
   },
   "dependencies": {
     "@simonwep/pickr": "^1.9.0",
+    "axios": "^1.5.1",
     "better-sqlite3": "^9.3.0",
     "bufferutil": "^4.0.8",
     "comlink": "~4.3.1",
